@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stammeszitate – Waldläufer Dune Dain</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&display=swap" rel="stylesheet" />
+  <style>
+    /* ── VCP Farben ────────────────────────────── */
+    :root {
+      --vcp-blau:       #004287;
+      --vcp-wasserblau: #00b0eb;
+      --vcp-feuerrot:   #e94653;
+      --vcp-feuergelb:  #fecf16;
+      --vcp-erdbraun:   #603609;
+      --vcp-luftgrau:   #cdd1ca;
+      --vcp-weiss:      #ffffff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: var(--vcp-blau);
+      color: var(--vcp-weiss);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Hintergrund-Muster (Waldläuferzeichen-Andeutung) ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 60px,
+          rgba(0,176,235,0.04) 60px,
+          rgba(0,176,235,0.04) 62px
+        ),
+        repeating-linear-gradient(
+          -45deg,
+          transparent,
+          transparent 60px,
+          rgba(0,176,235,0.04) 60px,
+          rgba(0,176,235,0.04) 62px
+        );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── HEADER ─────────────────────────────────── */
+    header {
+      position: relative;
+      z-index: 1;
+      background: var(--vcp-blau);
+      border-bottom: 4px solid var(--vcp-wasserblau);
+      padding: 2rem 2rem 0;
+      text-align: center;
+    }
+
+    .header-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .logo-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .logo-row img {
+      height: 52px;
+      filter: brightness(0) invert(1);
+    }
+
+    .stamm-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--vcp-wasserblau);
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      font-weight: 900;
+      line-height: 1.05;
+      color: var(--vcp-weiss);
+      margin-bottom: 0.4rem;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--vcp-luftgrau);
+      margin-bottom: 2rem;
+    }
+
+    /* ── NAV-TABS (Filter) ─────────────────────── */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 1.2rem 1rem;
+      background: rgba(0,0,0,0.2);
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .filter-btn {
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.45rem 1.1rem;
+      border: 2px solid transparent;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      background: transparent;
+      color: var(--vcp-luftgrau);
+    }
+
+    .filter-btn:hover {
+      color: var(--vcp-weiss);
+      border-color: var(--vcp-wasserblau);
+    }
+
+    .filter-btn.active {
+      background: var(--vcp-wasserblau);
+      color: var(--vcp-blau);
+      border-color: var(--vcp-wasserblau);
+    }
+
+    /* ── HAUPT-CONTENT ───────────────────────── */
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    /* ── BENEDIKT-BANNER ─────────────────────── */
+    .star-section {
+      background: var(--vcp-feuerrot);
+      border-radius: 12px;
+      padding: 1.6rem 2rem;
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      box-shadow: 0 8px 32px rgba(233,70,83,0.35);
+    }
+
+    .star-icon {
+      font-size: 3rem;
+      flex-shrink: 0;
+    }
+
+    .star-section h2 {
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--vcp-feuergelb);
+      line-height: 1.1;
+    }
+
+    .star-section p {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.82);
+      margin-top: 0.2rem;
+    }
+
+    /* ── ZITAT-GRID ──────────────────────────── */
+    .quotes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.4rem;
+    }
+
+    /* ── ZITAT-KARTE ─────────────────────────── */
+    .quote-card {
+      border-radius: 10px;
+      padding: 1.6rem 1.5rem 1.3rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      cursor: default;
+    }
+
+    .quote-card::before {
+      content: '\201C';
+      position: absolute;
+      top: -0.5rem;
+      left: 0.8rem;
+      font-size: 6rem;
+      font-weight: 900;
+      line-height: 1;
+      opacity: 0.13;
+      pointer-events: none;
+    }
+
+    .quote-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 36px rgba(0,0,0,0.3);
+    }
+
+    /* Farbvarianten der Karten */
+    .card-wasserblau { background: var(--vcp-wasserblau); color: var(--vcp-blau); }
+    .card-feuerrot   { background: var(--vcp-feuerrot);   color: var(--vcp-weiss); }
+    .card-feuergelb  { background: var(--vcp-feuergelb);  color: var(--vcp-erdbraun); }
+    .card-erdbraun   { background: var(--vcp-erdbraun);   color: var(--vcp-feuergelb); }
+    .card-dunkelblau { background: #00306a;               color: var(--vcp-wasserblau); }
+
+    .quote-text {
+      font-size: 1.05rem;
+      font-weight: 400;
+      line-height: 1.5;
+      margin-bottom: 1.1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .quote-author {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      opacity: 0.75;
+    }
+
+    .quote-author::before {
+      content: '—';
+    }
+
+    .author-unknown {
+      font-style: italic;
+      opacity: 0.55;
+    }
+
+    /* Benedikt-Abzeichen */
+    .badge-benedikt {
+      display: inline-block;
+      background: var(--vcp-feuergelb);
+      color: var(--vcp-erdbraun);
+      font-size: 0.62rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      margin-left: 0.4rem;
+      vertical-align: middle;
+    }
+
+    .card-feuergelb .badge-benedikt {
+      background: var(--vcp-erdbraun);
+      color: var(--vcp-feuergelb);
+    }
+    .card-wasserblau .badge-benedikt {
+      background: var(--vcp-blau);
+      color: var(--vcp-feuergelb);
+    }
+
+    /* ── COUNTER ─────────────────────────────── */
+    .quote-counter {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 0.85rem;
+      color: var(--vcp-luftgrau);
+      letter-spacing: 0.05em;
+    }
+
+    .quote-counter strong {
+      color: var(--vcp-wasserblau);
+    }
+
+    /* ── VERSTECKTE KARTEN (Filter) ─────────── */
+    .quote-card.hidden {
+      display: none;
+    }
+
+    /* ── FOOTER ──────────────────────────────── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 2px solid rgba(0,176,235,0.2);
+      text-align: center;
+      padding: 2rem 1.5rem;
+      font-size: 0.78rem;
+      color: var(--vcp-luftgrau);
+      letter-spacing: 0.04em;
+    }
+
+    footer strong {
+      color: var(--vcp-wasserblau);
+    }
+
+    /* ── RESPONSIVE ──────────────────────────── */
+    @media (max-width: 520px) {
+      .star-section { flex-direction: column; text-align: center; }
+      .quotes-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── HEADER ──────────────────────────────── -->
+  <header>
+    <div class="header-inner">
+      <div class="logo-row">
+        <img src="vcp-logo.svg" alt="VCP Logo" />
+        <span class="stamm-label">VCP Baden · Stamm Dune Dain Waldläufer</span>
+      </div>
+      <h1>Stammeszitate</h1>
+      <p class="subtitle">Die unsterblichen Weisheiten unseres Stammes — für die Nachwelt festgehalten</p>
+    </div>
+
+    <!-- Filter-Leiste -->
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">Alle Zitate</button>
+      <button class="filter-btn" data-filter="benedikt">⭐ Benedikt</button>
+      <button class="filter-btn" data-filter="unknown">Unbekannt</button>
+    </div>
+  </header>
+
+  <!-- ── HAUPT-CONTENT ────────────────────────── -->
+  <main>
+
+    <!-- Benedikt-Banner -->
+    <div class="star-section">
+      <div class="star-icon">⭐</div>
+      <div>
+        <h2>Benedikt — der Zitatemeister</h2>
+        <p>Manche werden Legende durch Taten. Benedikt wurde Legende durch Worte. Diese Sammlung ehrt sein unerschöpfliches Talent für unvergessliche Aussagen.</p>
+      </div>
+    </div>
+
+    <!-- Zähler -->
+    <p class="quote-counter" id="counter">
+      <strong id="count-num">7</strong> Zitate gesammelt — und täglich werden es mehr
+    </p>
+
+    <!-- Zitat-Grid -->
+    <div class="quotes-grid" id="quotes-grid">
+
+      <!-- Benedikt 1 -->
+      <div class="quote-card card-feuerrot" data-author="benedikt">
+        <p class="quote-text">Boah letztes Jahr hab ich ne Frau angesprochen — das war richtig schön.</p>
+        <div class="quote-author">
+          Benedikt
+          <span class="badge-benedikt">Zitatemeister</span>
+        </div>
+      </div>
+
+      <!-- Benedikt 2 -->
+      <div class="quote-card card-wasserblau" data-author="benedikt">
+        <p class="quote-text">Ich fress Räucherstäbchen und finde meinen Chi.</p>
+        <div class="quote-author">
+          Benedikt
+          <span class="badge-benedikt">Zitatemeister</span>
+        </div>
+      </div>
+
+      <!-- Benedikt 3 -->
+      <div class="quote-card card-feuergelb" data-author="benedikt">
+        <p class="quote-text">Früher war ich voll intelligent, jetzt bin ich dumm. Mytilus hat mich dumm gemacht.</p>
+        <div class="quote-author">
+          Benedikt
+          <span class="badge-benedikt">Zitatemeister</span>
+        </div>
+      </div>
+
+      <!-- Unbekannt 1 -->
+      <div class="quote-card card-dunkelblau" data-author="unknown">
+        <p class="quote-text">Ich begebe mich schon in die Kotposition.</p>
+        <div class="quote-author author-unknown">
+          Unbekannte Quelle
+        </div>
+      </div>
+
+      <!-- Unbekannt 2 -->
+      <div class="quote-card card-erdbraun" data-author="unknown">
+        <p class="quote-text">Zum wischen? Wischen Impossible.</p>
+        <div class="quote-author author-unknown">
+          Unbekannte Quelle
+        </div>
+      </div>
+
+      <!-- Unbekannt 3 -->
+      <div class="quote-card card-wasserblau" data-author="unknown">
+        <p class="quote-text">Sternzeichen Macher? Nein — Sternzeichen Schlagring.</p>
+        <div class="quote-author author-unknown">
+          Unbekannte Quelle
+        </div>
+      </div>
+
+      <!-- Unbekannt 4 -->
+      <div class="quote-card card-feuerrot" data-author="unknown">
+        <p class="quote-text">Ich war leider immer ganz schön weit rechts.</p>
+        <div class="quote-author author-unknown">
+          Unbekannte Quelle
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ── FOOTER ──────────────────────────────── -->
+  <footer>
+    <strong>Stamm Dune Dain Waldläufer</strong> · VCP Baden ·
+    Zitate gesammelt mit Liebe und leichtem Fremdschämen
+  </footer>
+
+  <!-- ── FILTER-LOGIK ─────────────────────────── -->
+  <script>
+    const btns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.quote-card');
+    const countEl = document.getElementById('count-num');
+
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        btns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.dataset.filter;
+        let visible = 0;
+
+        cards.forEach(card => {
+          const author = card.dataset.author;
+          const show = filter === 'all' || author === filter;
+          card.classList.toggle('hidden', !show);
+          if (show) visible++;
+        });
+
+        countEl.textContent = visible;
+      });
+    });
+  </script>
+</body>
+</html>
